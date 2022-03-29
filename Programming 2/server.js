@@ -1,12 +1,12 @@
 //
 weath = "winter"
 //! Requiring modules  --  START
-var Grass = require("./classes/Grass.js");
-var GrassEater = require("./classes/GrassEater.js");
-var Predator = require("./classes/Predator");
-var Generator = require("./classes/Generator");
-var PredatorGenerator = require("./classes/PredatorGenerator");
-var random = require('./classes/random');
+var Grass = require("./modules/Grass.js");
+var GrassEater = require("./modules/GrassEater.js");
+var Predator = require("./modules/Predator");
+var Generator = require("./modules/Generator");
+var PredatorGenerator = require("./modules/PredatorGenerator");
+var random = require('./modules/random');
 //! Requiring modules  --  END
 
 
@@ -88,16 +88,24 @@ server.listen(3000);
 
 //! SERVER STUFF END  --  END
 
-
 function creatingObjects() {
   for (var y = 0; y < matrix.length; y++) {
     for (var x = 0; x < matrix[y].length; x++) {
-      if (matrix[y][x] === 2) {
-        var grassEater = new GrassEater(x, y);
-        grassEaterArr.push(grassEater);
-      } else if (matrix[y][x] === 1) {
-        var grass = new Grass(x, y);
-        grassArr.push(grass);
+      if (matrix[y][x] === 1) {
+        var newGrass = new Grass(x, y, 1);
+        grassArr.push(newGrass);
+      } else if (matrix[y][x] === 2) {
+        var newGrassEater = new GrassEater(x, y, 2);
+        grassEaterArr.push(newGrassEater);
+      } else if (matrix[y][x] === 3) {
+        var newPredator = new Predator(x, y, 3);
+        predatorArr.push(newPredator);
+      } else if (matrix[y][x] === 4) {
+        var newGenerator = new Generator(x, y, 4);
+        generatorArr.push(newGenerator);
+      } else if (matrix[y][x] === 5) {
+        var newPredatorGenerator = new PredatorGenerator(x, y, 5);
+        predatorGeneratorArr.push(newPredatorGenerator);
       }
     }
   }
@@ -105,13 +113,11 @@ function creatingObjects() {
 
 function game() {
   if (grassArr[0] !== undefined) {
-    if (weath !== 'autumn') {
-      for (var i in grassArr) {
-        grassArr[i].mul();
-      }
+    for (var i in grassArr) {
+      grassArr[i].mul();
     }
-
   }
+  
   if (grassEaterArr[0] !== undefined) {
     for (var i in grassEaterArr) {
       grassEaterArr[i].eat();
