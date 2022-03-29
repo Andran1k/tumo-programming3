@@ -1,6 +1,7 @@
-let LivingCreature = require("./LivingCreature");
+var LivingCreature = require("./LivingCreature");
+var random = require("./random")
 
-class Generator extends LivingCreature {
+module.exports = class Generator extends LivingCreature {
   constructor(x, y, id) {
     super(x, y, id);
     this.timer = 0;
