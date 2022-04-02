@@ -25,8 +25,8 @@ var fs = require('fs');
 function matrixGenerator(matrixSize, grass, grassEater, predatorArr, generatorArr, predatorGeneratorArr) {
   for (let i = 0; i < matrixSize; i++) {
     matrix[i] = [];
-    for (let o = 0; o < matrixSize; o++) {
-      matrix[i][o] = 0;
+    for (let j = 0; j < matrixSize; j++) {
+      matrix[i][j] = 0;
     }
   }
   for (let i = 0; i < grass; i++) {
@@ -56,7 +56,7 @@ function matrixGenerator(matrixSize, grass, grassEater, predatorArr, generatorAr
   }
 }
 
-matrixGenerator(20, 1, 1);
+matrixGenerator(25, 100, 10, 10, 10, 10);
 
 //! Creating MATRIX -- END
 
@@ -117,10 +117,28 @@ function game() {
       grassArr[i].mul();
     }
   }
-  
+
   if (grassEaterArr[0] !== undefined) {
     for (var i in grassEaterArr) {
       grassEaterArr[i].eat();
+    }
+  }
+
+  if (predatorArr[0] !== undefined) {
+    for (var i in predatorArr) {
+      predatorArr[i].eat();
+    }
+  }
+
+  if (generatorArr[0] !== undefined) {
+    for (var i in generatorArr) {
+      generatorArr[i].generate();
+    }
+  }
+
+  if (predatorGeneratorArr[0] !== undefined) {
+    for (var i in predatorGeneratorArr) {
+      predatorGeneratorArr[i].generate();
     }
   }
 
@@ -135,7 +153,7 @@ function game() {
 }
 
 
-setInterval(game, 1000)
+setInterval(game, 500)
 
 //// Add event
 function kill() {
