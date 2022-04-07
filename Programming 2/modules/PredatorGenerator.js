@@ -1,10 +1,12 @@
 var LivingCreature = require("./LivingCreature");
 var random = require("./random")
+const Predator = require("./Predator");
 
 module.exports = class PredatorGenerator extends LivingCreature {
   constructor(x, y, id) {
     super(x, y, id);
     this.energy = 8;
+    this.timer = 0;
     this.getNewCordinates();
   }
 
@@ -30,7 +32,7 @@ module.exports = class PredatorGenerator extends LivingCreature {
     var emptyCells = this.chooseCell(0);
     var newCell = random(emptyCells);
 
-    if (this.timer % 20 == 0 && newCell) {
+    if (this.timer % 20 === 0 && newCell) {
       var newX = newCell[0];
       var newY = newCell[1];
 
@@ -46,11 +48,11 @@ module.exports = class PredatorGenerator extends LivingCreature {
   }
 
   generateYourself() {
-    var borderX = floor(random(0, matrix.length));
-    var borderY = floor(random(0, matrix.length));
+    var borderX = random(matrix.length);
+    var borderY = random(matrix.length);
     for (var y = borderY; y < matrix.length; y++) {
       for (var x = borderX; x < matrix.length; x++) {
-        if (matrix[y][x] == 0) {
+        if (matrix[y][x] === 0) {
           var newX = x;
           var newY = y;
 
@@ -71,8 +73,8 @@ module.exports = class PredatorGenerator extends LivingCreature {
 
       for (var i in predatorGeneratorArr) {
         if (
-          predatorGeneratorArr[i].x == this.x &&
-          predatorGeneratorArr[i].y == this.y
+          predatorGeneratorArr[i].x === this.x &&
+          predatorGeneratorArr[i].y === this.y
         ) {
           predatorGeneratorArr.splice(i, 1);
           break;
